@@ -20,7 +20,7 @@ namespace CRUDusingDapper.Controllers
         // GET: Employee/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(empRepo.GetAllEmployees().Find(e => e.Id == id));
         }
 
         // GET: Employee/Create
@@ -68,23 +68,11 @@ namespace CRUDusingDapper.Controllers
         // GET: Employee/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Employee/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            if (empRepo.DeleteEmployee(id))
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                ViewBag.AlertMsg = "Employee details deleted successfully";
             }
-            catch
-            {
-                return View();
-            }
+            return View("Index");
         }
     }
 }
