@@ -47,17 +47,16 @@ namespace CRUDusingDapper.Controllers
         // GET: Employee/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(empRepo.GetAllEmployees().Find(e=>e.Id==id));
         }
 
         // POST: Employee/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, EmpModel objEmp)
         {
             try
             {
-                // TODO: Add update logic here
-
+                empRepo.UpdateEmployee(objEmp);
                 return RedirectToAction("Index");
             }
             catch

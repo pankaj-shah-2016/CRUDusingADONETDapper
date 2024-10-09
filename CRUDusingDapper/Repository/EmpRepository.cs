@@ -13,18 +13,15 @@ namespace CRUDusingDapper.Repository
     public class EmpRepository
     {
         public SqlConnection con;
-        //To Handle connection related activities      
+             
         private void connection()
         {
             string constr = ConfigurationManager.ConnectionStrings["SqlConn"].ToString();
             con = new SqlConnection(constr);
-
         }
-        //To Add Employee details      
+            
         public void AddEmployee(EmpModel objEmp)
-        {
-
-            //Additing the employess      
+        {   
             try
             {
                 connection();
@@ -34,48 +31,42 @@ namespace CRUDusingDapper.Repository
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
         }
-        //To view employee details with generic list       
+            
         public List<EmpModel> GetAllEmployees()
         {
             try
             {
                 connection();
                 con.Open();
-                IList<EmpModel> EmpList = SqlMapper.Query<EmpModel>(
-                                  con, "GetEmployees").ToList();
+                IList<EmpModel> EmpList = SqlMapper.Query<EmpModel>(con, "GetEmployees").ToList();
                 con.Close();
                 return EmpList.ToList();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
         //To Update Employee details      
-        public void UpdateEmployee(EmpModel objUpdate)
+        public void UpdateEmployee(EmpModel objEmp)
         {
             try
             {
                 connection();
                 con.Open();
-                con.Execute("UpdateEmpDetails", objUpdate, commandType: CommandType.StoredProcedure);
+                con.Execute("UpdateEmpDetails", objEmp, commandType: CommandType.StoredProcedure);
                 con.Close();
             }
             catch (Exception)
             {
-
                 throw;
             }
-
         }
-        //To delete Employee details      
+             
         public bool DeleteEmployee(int Id)
         {
             try
