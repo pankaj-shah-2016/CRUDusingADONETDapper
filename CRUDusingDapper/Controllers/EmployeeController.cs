@@ -31,12 +31,11 @@ namespace CRUDusingDapper.Controllers
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(EmpModel objEmp)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                empRepo.AddEmployee(objEmp);
                 return RedirectToAction("Index");
             }
             catch
